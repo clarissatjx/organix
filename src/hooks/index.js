@@ -25,9 +25,7 @@ export function useLabels(tasks) {
   const [labels, setLabels] = useState([]);
 
   function calculateNumOfTasks(labelName, tasks) {
-    console.log(1);
-    const numOfTasks = tasks.filter((task) => task.labelName === labelName).length;
-    console.log(numOfTasks);
+    const numOfTasks = tasks.filter((task) => task.label === labelName).length;
     return numOfTasks;
 }
 
@@ -46,7 +44,7 @@ export function useLabels(tasks) {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [tasks]);
 
   return labels;
 }
