@@ -36,4 +36,4 @@ Coming soon!
 
 ## Contact
 
-For any inquiries, feel free to reach out at [clarissatjx@gmail.com].
+For any inquiries, feel free to reach out at [my email](clarissatjx@gmail.com).
