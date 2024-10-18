@@ -3,9 +3,12 @@ import Modal from "../Modal";
 import { Button } from "@mui/material";
 import TodoForm from "../TodoForm";
 import { TodoContext } from "../../context";
+import { getCollectionRef, add } from "../../firebase";
+import moment from "moment";
+import { calendarItems } from "../../constants/index";
 
 function AddNewTodo() {
-  const { selectedLabel } = useContext(TodoContext);
+  const { labels, selectedLabel } = useContext(TodoContext);
 
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState("");
@@ -17,13 +20,28 @@ function AddNewTodo() {
     setTodoLabel(selectedLabel);
   }, [selectedLabel]);
 
-  const labels = [
-    { id: 1, name: "personal", numOfTasks: 0 },
-    { id: 2, name: "school", numOfTasks: 1 },
-    { id: 3, name: "misc", numOfTasks: 3 },
-  ];
-
-  function handleSubmit(e) {}
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (text && !calendarItems.includes(todoLabel)) {
+      try {
+        await add(getCollectionRef("tasks"), {
+          text: text,
+          date: moment(day).format("DD/MM/YYYY"),
+          day: moment(day).format("d"),
+          time: moment(time).format("hh:mm A"),
+          label: todoLabel,
+          checked: false,
+        });
+        console.log("Successfully added task");
+        setShowModal(false);
+        setText("");
+        setTime(new Date());
+        setDay(new Date());
+      } catch (e) {
+        console.log("Error adding task", e);
+      }
+    }
+  }
 
   return (
     <div className="AddNewTodo">

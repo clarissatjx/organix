@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, onSnapshot, doc } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, doc, addDoc } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,5 +23,6 @@ const db = getFirestore(app);
 const getCollectionRef = (collectionName) => collection(db, collectionName);
 const getDocumentRef = (docId, collectionName) => doc(db, collectionName, docId);
 const snapshot = (ref, func) => onSnapshot(ref, func);
+const add = (collectionName, item) => addDoc(collectionName, item);
 
-export { getCollectionRef, getDocumentRef, snapshot };
+export { getCollectionRef, getDocumentRef, snapshot, add };
