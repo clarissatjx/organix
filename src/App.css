@@ -519,7 +519,6 @@
   cursor: pointer;
 }
 
-
 .Todo .todo-container .text {
   position: relative;
   flex: 1;
@@ -642,4 +641,19 @@
 .EditToDo .TodoForm .pick-label .labels .active {
   background-color: #9caf88;
   color: #fafafa;
+}
+
+/* Next 7 Days */
+.Next7Days .day {
+  margin: 5px;
+  display: flex;
+}
+
+.Next7Days .day .name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.Next7Days .day .total-tasks {
+  margin-left: 10px;
 }

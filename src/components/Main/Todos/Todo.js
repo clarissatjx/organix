@@ -6,7 +6,7 @@ import {
   Trash,
 } from "react-bootstrap-icons";
 
-function Todo({ todo }) {
+function Todo({ todo, showDate = false }) {
   const [hover, setHover] = useState(false);
 
   return (
@@ -37,7 +37,16 @@ function Todo({ todo }) {
             {todo.text}
           </p>
           <span>
-            {todo.time} - {todo.label}
+            {showDate ? (
+              <span>
+                {todo.date} {todo.time} - {todo.label}
+              </span>
+            ) : (
+              <span>
+                {" "}
+                {todo.time} - {todo.label}{" "}
+              </span>
+            )}
           </span>
           <div className={`line ${todo.checked ? "line-through" : ""}`}></div>
         </div>

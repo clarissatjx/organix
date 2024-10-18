@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getCollectionRef, getDocumentRef, snapshot } from "../firebase";
+import moment from "moment";
 
 export function useTodos() {
   const [todos, setTodos] = useState([]);
@@ -13,7 +14,13 @@ export function useTodos() {
           ...doc.data(),
         };
       });
-      setTodos(data);
+      
+      const sortedData = data.sort((a, b) => {
+        const dateA = moment(a.date, 'DD/MM/YYYY');
+        const dateB = moment(b.date, 'DD/MM/YYYY');
+        return dateA - dateB; 
+      });
+      setTodos(sortedData);
     });
     return () => unsubscribe();
   }, []);
@@ -40,7 +47,8 @@ export function useLabels(tasks) {
           numOfTasks: calculateNumOfTasks(labelName, tasks),
         };
       });
-      setLabels(data);
+      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+      setLabels(sortedData);
     });
 
     return () => unsubscribe();
