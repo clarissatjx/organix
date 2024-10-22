@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import logo_green from "../../images/logo_green.png";
 import { Button, Checkbox } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -15,6 +15,7 @@ import {
 } from "../../firebase";
 import { useUser } from "../../context/user";
 import moment from "moment";
+import { Navigate, useNavigate } from "react-router-dom"; // Import Redirect
 
 const theme = createTheme({
   palette: {
@@ -30,10 +31,18 @@ const theme = createTheme({
 });
 
 function SignUp() {
-  const { username, setUsername } = useUser();
+  const { username, setUsername, isLoggedIn, setIsLoggedIn } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn); // Log the value of isLoggedIn
+    if (isLoggedIn) {
+      navigate("/"); // Redirect to home if logged in
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
