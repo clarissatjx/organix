@@ -3,11 +3,24 @@ import { PencilFill, XCircle } from "react-bootstrap-icons";
 import Modal from "../../Modal";
 import RenameLabel from "./Label/RenameLabel";
 import { TodoContext } from "../../../context";
+import { deleteItem, getDocumentRef } from "../../../firebase";
 
 function Label({ label, edit }) {
   const { setSelectedLabel } = useContext(TodoContext);
 
   const [showModal, setShowModal] = useState(false);
+
+  function handleDelete() {
+    const labelRef = getDocumentRef(label.id, "labels");
+    deleteItem(labelRef)
+      .then(() => {
+        console.log(`Label ${label.name} deleted successfully`);
+      })
+      .catch((error) => {
+        console.error("Error deleting label:", error);
+      });
+  }
+
   return (
     <div className="Label">
       <div className="name" onClick={() => setSelectedLabel(label.name)}>
@@ -19,7 +32,7 @@ function Label({ label, edit }) {
             <span className="edit" onClick={() => setShowModal(true)}>
               <PencilFill size="13" />
             </span>
-            <span className="delete">
+            <span className="delete" onClick={handleDelete}>
               <XCircle size="13" />
             </span>
           </div>

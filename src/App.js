@@ -1,29 +1,20 @@
 import "./App.css";
-import Main from "./components/Main";
-import User from "./components/Sidebar/User";
-import AddNewTodo from "./components/Sidebar/AddNewTodo";
-import Calendar from "./components/Sidebar/Calendar";
-import Labels from "./components/Sidebar/Labels";
-import Todos from "./components/Main/Todos";
-import EditToDo from "./components/Main/EditTodo";
-import Sidebar from "./components/Sidebar";
-import Logo from "./components/Sidebar/Logo";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/GetStarted/Login";
+import SignUp from "./components/GetStarted/SignUp";
 
 function App() {
   return (
-    <div className="App">
-      <Sidebar>
-        <Logo />
-        <User />
-        <AddNewTodo />
-        <Calendar />
-        <Labels />
-      </Sidebar>
-      <Main>
-        <Todos />
-        <EditToDo />
-      </Main>
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

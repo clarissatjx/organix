@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ubuntu:wght@300&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   padding: 0;
@@ -13,6 +16,387 @@
   height: 100vh;
   overflow: hidden;
   background-color: #fafafa;
+}
+
+/* Login */
+.Login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.Login .left {
+  flex: 0 0 50%;
+  background-color: #fafafa;
+  display: flex;
+  color: #303030;
+  justify-content: center;
+  align-items: center;
+}
+
+.Login .left .container {
+  width: 450px;
+}
+
+.Login .logo {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+
+.Login .logo .logotext {
+  color: #9caf88;
+  font-family: "Outfit";
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.Login .logo img {
+  width: auto;
+  height: 40px;
+  object-fit: contain;
+}
+
+.Login .title {
+  font-size: 2.8rem;
+  font-weight: 600;
+}
+
+.Login .inputs {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  gap: 15px;
+}
+
+.Login input {
+  padding-left: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: 1.5px solid #303030; /* Basic border styling */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 1rem;
+}
+
+.Login input:focus {
+  border: 2px solid #9caf88; /* Basic border styling */
+  outline: none;
+}
+
+.Login .rememberme-forgotpassword {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.Login .rememberme-forgotpassword .checkbox {
+  left: -7px;
+}
+
+.Login .rememberme-forgotpassword a {
+  position: absolute;
+  right: 5px;
+  color: #303030;
+}
+
+.Login Button {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.Login .redirect-signup {
+  display: flex;
+  align-items: center; /* Center the text */
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  font-size: 0.9rem;
+}
+
+.Login .redirect-signup a {
+  color: #303030;
+  padding-left: 5px;
+  font-weight: bold;
+  text-decoration: none; /* Remove underline */
+}
+
+.Login .redirect a:hover {
+  color: #a38a6d; /* Change link color */
+}
+
+.Login .or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1px;
+  background-color: #bebebe;
+}
+
+.Login .or .ortext {
+  background-color: #fafafa;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.9rem;
+}
+
+.Login .google {
+  margin-top: 25px;
+  margin-bottom: 100px;
+}
+
+.Login .google img {
+  width: 20px;
+  height: 20px;
+}
+
+.Login .google p {
+  padding-left: 10px;
+  opacity: 54%;
+}
+
+.Login .right {
+  flex: 1; /* The right side will take the remaining space */
+  background-color: #9caf88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login .right .container {
+  width: 450px;
+}
+
+.Login .right img {
+  width: 100%;
+  height: 500px;
+}
+
+.Login .right .titles {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  color: #fafafa;
+}
+
+.Login .right .header {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.Login .right .subheader {
+  font-size: 1.5rem;
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+@media (max-width: 1200px) {
+  .Login {
+    flex-direction: column; /* Stack the left and right sections vertically */
+  }
+
+  .Login .left {
+    flex: 1; /* Allow the left side to take full width */
+  }
+
+  .Login .right {
+    display: none; /* Hide the right side */
+  }
+}
+
+/* SignUp */
+.SignUp {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.SignUp .right {
+  flex: 0 0 50%;
+  background-color: #fafafa;
+  display: flex;
+  color: #303030;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.SignUp .left {
+  flex: 1; /* The left side will take the remaining space */
+  background-color: #9caf88;
+}
+
+.SignUp .right .container {
+  width: 450px;
+}
+
+.SignUp .logo {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+
+.SignUp .logo .logotext {
+  color: #9caf88;
+  font-family: "Outfit";
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.SignUp .logo img {
+  width: auto;
+  height: 40px;
+  object-fit: contain;
+}
+
+.SignUp .title {
+  font-size: 2.8rem;
+  font-weight: 600;
+}
+
+.SignUp .inputs {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  gap: 15px;
+}
+
+.SignUp input {
+  padding-left: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: 1.5px solid #303030; /* Basic border styling */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 1rem;
+}
+
+.SignUp input:focus {
+  border: 2px solid #9caf88; /* Basic border styling */
+  outline: none;
+}
+
+.SignUp .rememberme-forgotpassword {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.SignUp .rememberme-forgotpassword .checkbox {
+  left: -7px;
+}
+
+.SignUp Button {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.SignUp .redirect-signup {
+  display: flex;
+  align-items: center; /* Center the text */
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  font-size: 0.9rem;
+}
+
+.SignUp .redirect-signup a {
+  color: #303030;
+  padding-left: 5px;
+  font-weight: bold;
+  text-decoration: none; /* Remove underline */
+}
+
+.SignUp .redirect a:hover {
+  color: #a38a6d; /* Change link color */
+}
+
+.SignUp .or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1px;
+  background-color: #bebebe;
+}
+
+.SignUp .or .ortext {
+  background-color: #fafafa;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.9rem;
+}
+
+.SignUp .google {
+  margin-top: 25px;
+  margin-bottom: 100px;
+}
+
+.SignUp .google img {
+  width: 20px;
+  height: 20px;
+}
+
+.SignUp .google p {
+  padding-left: 10px;
+  opacity: 54%;
+}
+
+.SignUp .left {
+  flex: 1; /* The right side will take the remaining space */
+  background-color: #9caf88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SignUp .left .container {
+  width: 450px;
+}
+
+.SignUp .left img {
+  width: 100%;
+  height: 500px;
+}
+
+.SignUp .left .titles {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  color: #fafafa;
+}
+
+.SignUp .left .header {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.SignUp .left .subheader {
+  font-size: 1.5rem;
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+@media (max-width: 1200px) {
+  .SignUp .left {
+    display: none; /* Hide the left side */
+  }
+
+  .SignUp .right {
+    flex: 1; /* Make the right side take full width */
+    flex-basis: 100%; /* Ensure it occupies the entire width */
+  }
 }
 
 /* Sidebar */

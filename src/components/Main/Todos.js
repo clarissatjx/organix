@@ -19,10 +19,14 @@ function Todos() {
               moment(todo.date, "DD/MM/YYYY").isSame(moment(), "day")
             )
             .map((todo) => <Todo todo={todo} key={todo.id} />)
-        ) : (
+        ) : selectedLabel === "all time" ? (
           todos.map((todo) => (
             <Todo todo={todo} key={todo.id} showDate={true} />
           ))
+        ) : (
+          todos
+            .filter((todo) => todo.label === selectedLabel)
+            .map((todo) => <Todo todo={todo} key={todo.id} showDate={true} showLabel={false} />)
         )}
       </div>
     </div>

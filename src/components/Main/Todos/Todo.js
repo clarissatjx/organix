@@ -5,9 +5,26 @@ import {
   Circle,
   Trash,
 } from "react-bootstrap-icons";
+import { deleteItem, getDocumentRef, update } from "../../../firebase/index";
 
-function Todo({ todo, showDate = false }) {
+function Todo({ todo, showDate = false, showLabel = true }) {
   const [hover, setHover] = useState(false);
+
+  function handleDelete() {
+    const taskRef = getDocumentRef(todo.id, "tasks");
+    deleteItem(taskRef)
+      .then(() => {
+        console.log(`Task ${todo.text} deleted successfully`);
+      })
+      .catch((error) => {
+        console.error("Error deleting task:", error);
+      });
+  }
+
+  function handleCheck() {
+    const taskRef = getDocumentRef(todo.id, "tasks");
+    update(taskRef, { checked: !todo.checked});
+  }
 
   return (
     <div className="Todo">
@@ -18,7 +35,7 @@ function Todo({ todo, showDate = false }) {
       >
         <div className="check-todo">
           {todo.checked ? (
-            <span className="checked">
+            <span className="checked" onClick={handleCheck}>
               <CheckCircleFill
                 className="icon"
                 color="#9caf88"
@@ -26,7 +43,7 @@ function Todo({ todo, showDate = false }) {
               />
             </span>
           ) : (
-            <span className="unchecked">
+            <span className="unchecked" onClick={handleCheck}>
               <Circle className="icon" color="#9caf88" size={"1.3rem"} />
             </span>
           )}
@@ -37,14 +54,17 @@ function Todo({ todo, showDate = false }) {
             {todo.text}
           </p>
           <span>
-            {showDate ? (
+            {showDate && showLabel ? (
               <span>
                 {todo.date} {todo.time} - {todo.label}
               </span>
+            ) : showDate ? (
+              <span>
+                {todo.date} {todo.time}
+              </span>
             ) : (
               <span>
-                {" "}
-                {todo.time} - {todo.label}{" "}
+                {todo.time} - {todo.label}
               </span>
             )}
           </span>
@@ -61,7 +81,7 @@ function Todo({ todo, showDate = false }) {
 
         <div className="delete-todo">
           {(hover || todo.checked) && (
-            <span>
+            <span onClick={handleDelete}>
               <Trash />
             </span>
           )}

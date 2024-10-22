@@ -1,8 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, onSnapshot, doc, addDoc } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,8 +27,11 @@ const analytics = getAnalytics(app);
 // functions
 const db = getFirestore(app);
 const getCollectionRef = (collectionName) => collection(db, collectionName);
-const getDocumentRef = (docId, collectionName) => doc(db, collectionName, docId);
+const getDocumentRef = (docId, collectionName) =>
+  doc(db, collectionName, docId);
 const snapshot = (ref, func) => onSnapshot(ref, func);
 const add = (collectionName, item) => addDoc(collectionName, item);
+const deleteItem = (ref) => deleteDoc(ref);
+const update = (docRef, newData) => updateDoc(docRef, newData);
 
-export { getCollectionRef, getDocumentRef, snapshot, add };
+export { getCollectionRef, getDocumentRef, snapshot, add, deleteItem, update };
