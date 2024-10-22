@@ -128,7 +128,7 @@ function SignUp() {
         time: currentTime,
       });
 
-      alert("User signed up with Google successfully!");
+      alert("User signed up with Google successfully! Please log in.");
     } catch (error) {
       console.error("Error signing up with Google:", error);
       alert(error.message);

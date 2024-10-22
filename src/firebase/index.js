@@ -42,7 +42,7 @@ const getDocumentRef = (docId, collectionName) =>
 const getSubcollectionDocRef = (username, docId, subcollectionName) =>
   doc(db, "users", username, subcollectionName, docId);
 const snapshot = (ref, func) => onSnapshot(ref, func);
-const add = (collectionName, item) => addDoc(collectionName, item);
+const add = (collectionRef, item) => addDoc(collectionRef, item);
 const deleteItem = (ref) => deleteDoc(ref);
 const update = (docRef, newData) => updateDoc(docRef, newData);
 const set = (docRef, newData) => setDoc(docRef, newData);

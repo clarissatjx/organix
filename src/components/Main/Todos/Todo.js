@@ -5,8 +5,15 @@ import {
   Circle,
   Trash,
 } from "react-bootstrap-icons";
-import { deleteItem, getSubcollectionDocRef, update } from "../../../firebase/index";
+import {
+  deleteItem,
+  getSubcollectionDocRef,
+  getSubcollectionRef,
+  update,
+  add,
+} from "../../../firebase/index";
 import { useUser } from "../../../context/user";
+import moment from "moment";
 
 function Todo({ todo, showDate = false, showLabel = true }) {
   const { username } = useUser();
@@ -23,9 +30,30 @@ function Todo({ todo, showDate = false, showLabel = true }) {
       });
   }
 
+  function handleAdd() {
+    const tasksSubcollectionRef = getSubcollectionRef(username, "tasks");
+    // Use Moment.js to parse the original date and add one day
+    const originalDate = moment(todo.date, "DD/MM/YYYY").add(1, "days");
+    const newDate = originalDate.format("DD/MM/YYYY");
+    const newDay = originalDate.format("d");
+
+    try {
+      add(tasksSubcollectionRef, {
+        text: todo.text,
+        time: todo.time,
+        label: todo.label,
+        date: newDate,
+        day: newDay,
+        checked: false,
+      });
+    } catch (e) {
+      console.log("Error adding task", e);
+    }
+  }
+
   function handleCheck() {
     const taskRef = getSubcollectionDocRef(username, todo.id, "tasks");
-    update(taskRef, { checked: !todo.checked});
+    update(taskRef, { checked: !todo.checked });
   }
 
   return (
@@ -73,7 +101,7 @@ function Todo({ todo, showDate = false, showLabel = true }) {
           <div className={`line ${todo.checked ? "line-through" : ""}`}></div>
         </div>
 
-        <div className="add-to-next-day">
+        <div className="add-to-next-day" onClick={handleAdd}>
           {todo.checked && (
             <span>
               <ArrowClockwise />
