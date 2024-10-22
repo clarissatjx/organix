@@ -9,12 +9,15 @@ export const UserProvider = ({ children }) => {
     // Get the username from local storage if available
     return localStorage.getItem("username") || "";
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true"; // Parse to boolean
+  });
 
   const logout = () => {
     setUsername(""); // Reset the username
     setIsLoggedIn(false);
     localStorage.removeItem("username");
+    localStorage.setItem("isLoggedIn", "false");
     // Add any other logout logic, like clearing tokens if applicable
   };
 
@@ -22,10 +25,12 @@ export const UserProvider = ({ children }) => {
     // Store the username in local storage whenever it changes
     if (username) {
       localStorage.setItem("username", username);
+      localStorage.setItem("isLoggedIn", isLoggedIn);
     } else {
       localStorage.removeItem("username");
+      localStorage.setItem("isLoggedIn", "false");
     }
-  }, [username]);
+  }, [username, isLoggedIn]);
 
   return (
     <UserContext.Provider

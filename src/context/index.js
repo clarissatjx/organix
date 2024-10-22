@@ -6,6 +6,7 @@ const TodoContext = createContext();
 function TodoContextProvider({ children }) {
   const defaultLabel = "today";
   const [selectedLabel, setSelectedLabel] = useState(defaultLabel);
+  const [selectedTask, setSelectedTask] = useState(undefined);
 
   const todos = useTodos();
   const labels = useLabels(todos);
@@ -16,7 +17,9 @@ function TodoContextProvider({ children }) {
         selectedLabel,
         setSelectedLabel,
         todos,
-        labels
+        labels,
+        selectedTask,
+        setSelectedTask,
       }}
     >
       {children}

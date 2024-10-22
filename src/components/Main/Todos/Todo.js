@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ArrowClockwise,
   CheckCircleFill,
@@ -14,9 +14,12 @@ import {
 } from "../../../firebase/index";
 import { useUser } from "../../../context/user";
 import moment from "moment";
+import { TodoContext } from "../../../context";
 
 function Todo({ todo, showDate = false, showLabel = true }) {
   const { username } = useUser();
+  const { selectedTask, setSelectedTask } = useContext(TodoContext);
+
   const [hover, setHover] = useState(false);
 
   function handleDelete() {
@@ -28,6 +31,10 @@ function Todo({ todo, showDate = false, showLabel = true }) {
       .catch((error) => {
         console.error("Error deleting task:", error);
       });
+
+      if (selectedTask === todo) {
+        setSelectedTask(undefined);
+      }
   }
 
   function handleAdd() {
@@ -79,7 +86,7 @@ function Todo({ todo, showDate = false, showLabel = true }) {
           )}
         </div>
 
-        <div className="text">
+        <div className="text" onClick={() => setSelectedTask(todo)}>
           <p style={{ color: todo.checked ? "#bebebe" : "#303030" }}>
             {todo.text}
           </p>

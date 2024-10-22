@@ -34,6 +34,7 @@ function Login() {
 
   // Redirect to home if username is set (user is logged in)
   useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn); // Log the value of isLoggedIn
     if (isLoggedIn) {
       navigate("/"); // Redirect to home if logged in
     }
