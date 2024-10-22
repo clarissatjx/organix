@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { Plus } from "react-bootstrap-icons";
 import Modal from "../../Modal";
 import LabelForm from "./AddNewLabel/LabelForm";
-import { getCollectionRef, add } from "../../../firebase";
+import { getCollectionRef, add, getSubcollectionRef } from "../../../firebase";
 import { getDocs, where, query } from "firebase/firestore";
+import { useUser } from "../../../context/user";
 
 function AddNewLabel() {
+  const {username} = useUser();
   const [showModal, setShowModal] = useState(false);
   const [labelName, setLabelName] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     if (labelName) {
-      const ref = getCollectionRef("labels");
+      const ref = getSubcollectionRef(username, "labels");
       const q = query(ref, where("name", "==", labelName));
 
       getDocs(q)

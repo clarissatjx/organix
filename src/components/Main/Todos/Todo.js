@@ -5,13 +5,15 @@ import {
   Circle,
   Trash,
 } from "react-bootstrap-icons";
-import { deleteItem, getDocumentRef, update } from "../../../firebase/index";
+import { deleteItem, getSubcollectionDocRef, update } from "../../../firebase/index";
+import { useUser } from "../../../context/user";
 
 function Todo({ todo, showDate = false, showLabel = true }) {
+  const { username } = useUser();
   const [hover, setHover] = useState(false);
 
   function handleDelete() {
-    const taskRef = getDocumentRef(todo.id, "tasks");
+    const taskRef = getSubcollectionDocRef(username, todo.id, "tasks");
     deleteItem(taskRef)
       .then(() => {
         console.log(`Task ${todo.text} deleted successfully`);
@@ -22,7 +24,7 @@ function Todo({ todo, showDate = false, showLabel = true }) {
   }
 
   function handleCheck() {
-    const taskRef = getDocumentRef(todo.id, "tasks");
+    const taskRef = getSubcollectionDocRef(username, todo.id, "tasks");
     update(taskRef, { checked: !todo.checked});
   }
 

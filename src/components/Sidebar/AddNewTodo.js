@@ -3,12 +3,14 @@ import Modal from "../Modal";
 import { Button } from "@mui/material";
 import TodoForm from "../TodoForm";
 import { TodoContext } from "../../context";
-import { getCollectionRef, add } from "../../firebase";
+import { getCollectionRef, add, getSubcollectionRef } from "../../firebase";
 import moment from "moment";
 import { calendarItems } from "../../constants/index";
+import {useUser} from "../../context/user";
 
 function AddNewTodo() {
   const { labels, selectedLabel } = useContext(TodoContext);
+  const { username } = useUser(); // Get the current user's username
 
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState("");
@@ -24,7 +26,7 @@ function AddNewTodo() {
     e.preventDefault();
     if (text && !calendarItems.includes(todoLabel)) {
       try {
-        await add(getCollectionRef("tasks"), {
+        await add(getSubcollectionRef(username, "tasks"), {
           text: text,
           date: moment(day).format("DD/MM/YYYY"),
           day: moment(day).format("d"),

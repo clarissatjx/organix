@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react";
-import { getCollectionRef, getDocumentRef, snapshot } from "../firebase";
+import {
+  createCollection,
+  getCollectionRef,
+  getDocumentRef,
+  getSubcollectionRef,
+  snapshot,
+} from "../firebase";
 import moment from "moment";
+import { useUser } from "../context/user";
 
 export function useTodos() {
+  const { username } = useUser(); // Get the current user's username
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const collectionRef = getCollectionRef("tasks");
+    console.log(username);
+    if (!username) return; // Exit early if no username is available
+
+    const collectionRef = getSubcollectionRef(username, "tasks");
+    console.log(collectionRef);
+    console.log("hi");
     let unsubscribe = snapshot(collectionRef, (ss) => {
       const data = ss.docs.map((doc) => {
         return {
@@ -14,30 +27,33 @@ export function useTodos() {
           ...doc.data(),
         };
       });
-      
+
       const sortedData = data.sort((a, b) => {
-        const dateA = moment(a.date, 'DD/MM/YYYY');
-        const dateB = moment(b.date, 'DD/MM/YYYY');
-        return dateA - dateB; 
+        const dateA = moment(a.date, "DD/MM/YYYY");
+        const dateB = moment(b.date, "DD/MM/YYYY");
+        return dateA - dateB;
       });
       setTodos(sortedData);
     });
     return () => unsubscribe();
-  }, []);
+  }, [username]);
 
   return todos;
 }
 
 export function useLabels(tasks) {
+  const { username } = useUser(); // Get the current user's username
   const [labels, setLabels] = useState([]);
 
   function calculateNumOfTasks(labelName, tasks) {
     const numOfTasks = tasks.filter((task) => task.label === labelName).length;
     return numOfTasks;
-}
+  }
 
   useEffect(() => {
-    const collectionRef = getCollectionRef("labels");
+    if (!username) return; // Exit early if no username is available
+
+    const collectionRef = getSubcollectionRef(username, "labels");
     let unsubscribe = snapshot(collectionRef, (shot) => {
       const data = shot.docs.map((doc) => {
         const labelName = doc.data().name;
@@ -52,7 +68,7 @@ export function useLabels(tasks) {
     });
 
     return () => unsubscribe();
-  }, [tasks]);
+  }, [username, tasks]);
 
   return labels;
 }

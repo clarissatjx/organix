@@ -3,15 +3,17 @@ import { PencilFill, XCircle } from "react-bootstrap-icons";
 import Modal from "../../Modal";
 import RenameLabel from "./Label/RenameLabel";
 import { TodoContext } from "../../../context";
-import { deleteItem, getDocumentRef } from "../../../firebase";
+import { deleteItem, getDocumentRef, getSubcollectionDocRef } from "../../../firebase";
+import { useUser } from "../../../context/user";
 
 function Label({ label, edit }) {
+  const { username } = useUser();
   const { setSelectedLabel } = useContext(TodoContext);
 
   const [showModal, setShowModal] = useState(false);
 
   function handleDelete() {
-    const labelRef = getDocumentRef(label.id, "labels");
+    const labelRef = getSubcollectionDocRef(username, label.id, "labels");
     deleteItem(labelRef)
       .then(() => {
         console.log(`Label ${label.name} deleted successfully`);
