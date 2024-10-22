@@ -2,18 +2,29 @@ import React, { useContext, useState } from "react";
 import { PencilFill, XCircle } from "react-bootstrap-icons";
 import Modal from "../../Modal";
 import RenameLabel from "./Label/RenameLabel";
-import { TodoContext } from "../../../context";
-import { deleteItem, getDocumentRef, getSubcollectionDocRef } from "../../../firebase";
+import { deleteItem, update, getSubcollectionDocRef } from "../../../firebase";
 import { useUser } from "../../../context/user";
+import { TodoContext, TodoContextProvider } from "../../../context";
 
 function Label({ label, edit }) {
   const { username } = useUser();
   const { setSelectedLabel } = useContext(TodoContext);
+  const { todos } = useContext(TodoContext);
 
   const [showModal, setShowModal] = useState(false);
 
   function handleDelete() {
+    if (label.name === "misc") {
+      alert("Misc label cannot be deleted.");
+      return;
+    }
     const labelRef = getSubcollectionDocRef(username, label.id, "labels");
+    const filteredTodos = todos.filter((task) => task.label === label.name);
+    filteredTodos.map((task) =>
+      update(getSubcollectionDocRef(username, task.id, "tasks"), {
+        label: "misc",
+      })
+    );
     deleteItem(labelRef)
       .then(() => {
         console.log(`Label ${label.name} deleted successfully`);
