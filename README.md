@@ -30,10 +30,10 @@ Contributions are welcome! If you would like to contribute to the project, pleas
 4. Push to the branch (`git push origin feature-YourFeature`).
 5. Open a pull request.
 
-## Demo
+## Try it out!
 
-Coming soon!
+My web app can be accessed [here](https://organix-blush.vercel.app)!
 
 ## Contact
 
-For any inquiries, feel free to reach out at [my email](clarissatjx@gmail.com).
+For any inquiries, feel free to reach out at [my email](mailto:clarissatjx@gmail.com).
