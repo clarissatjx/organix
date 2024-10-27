@@ -1,6 +1,7 @@
 # Organix
 
 Organix is a to-do list web application designed specifically for students. It helps users manage tasks efficiently and effectively while providing a user-friendly experience.
+Note: The Google sign-in feature is still a WIP! Frontend design is currently being improved. All other features still works :)
 
 ## Features
 
